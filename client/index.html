@@ -125,6 +125,39 @@ TODO:
                 ).map((item) => +item.dataset.colorLevel);
                 console.log(data);
                 alert("pasted to console");
+                const dates = createCommitDateListFromHeatmapValues(data);
+                const linesOfBash = bashScriptToCreateFakeCommitHistory(dates);
+                // TODO: add a "copy to clipboard button for this."
+                console.log(lines);
+            }
+
+            /**
+             * @param {(0 | 1 | 2 | 3 | 4)[]} mapData
+             */
+            function createCommitDateListFromHeatmapValues(mapData) {
+                // TODO
+                return [];
+            }
+
+            /**
+             * @param {string[]} dates
+             */
+            function bashScriptToCreateFakeCommitHistory(dates) {
+                const outputFile = "file-for-commits.txt"; // TODO: Make this configurable
+                const lines = dates
+                    .map((date, index) => {
+                        // TODO: WARNING: I haven't tested this yet. Might not work properly
+                        const oneCommit = [
+                            `echo "Some text for ${date}" > ${outputFile}`,
+                            `git add ${outputFile}`,
+                            `GIT_AUTHOR_DATE="${date}" GIT_COMMITTER_DATE="${date}" git commit -m "commit for ${date} - ${index}"`,
+                        ];
+
+                        return oneCommit;
+                    })
+                    .flat();
+
+                return lines;
             }
         </script>
     </body>

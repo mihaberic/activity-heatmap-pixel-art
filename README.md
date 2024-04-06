@@ -11,3 +11,8 @@ A fun project for generating a git history which draws pixel-art when displayed 
 
 # Disclaimer
 - This is just a joke project. Meant to prove a point. The point being that I like to code fun useless things :P
+
+
+# More:
+- Read about how contributions are counted for Github:
+    - [Why are my contributions not showing up on my profile](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/managing-contribution-settings-on-your-profile/why-are-my-contributions-not-showing-up-on-my-profile)
