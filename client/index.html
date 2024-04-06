@@ -1,0 +1,131 @@
+<!--
+TODO:
+- separate js into separate file when it becomes too large (> 200 lines)
+- have stored examples that you can draw and edit
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Heatmap Pixel Art Editor</title>
+        <style>
+            body {
+                background-color: #090a0c;
+                color: white;
+            }
+
+            #editorToolbar {
+                margin-top: 10em;
+
+                & label {
+                    border: 1px solid;
+
+                    &:has(input:checked) {
+                        border: 2px solid blue;
+                    }
+
+                    & input {
+                        visibility: hidden;
+                    }
+                }
+            }
+            #heatmap {
+                display: flex;
+                gap: 0;
+                padding: 0.5em;
+                flex-wrap: wrap;
+                flex-direction: column;
+                height: 8.4em;
+                width: 64em;
+                font-size: min(1.5vw, 1em);
+                align-content: flex-start;
+                margin-inline: auto;
+                margin-top: 10em;
+
+                & > div {
+                    width: 1em;
+                    height: 1em;
+                    padding: 0.1em;
+                    cursor: pointer;
+                    background-clip: content-box;
+
+                    &:hover {
+                        filter: brightness(2);
+                    }
+                }
+            }
+
+            [data-color-level="0"] {
+                background-color: #161b22;
+            }
+
+            [data-color-level="1"] {
+                background-color: #0d4429;
+            }
+
+            [data-color-level="2"] {
+                background-color: #016d32;
+            }
+
+            [data-color-level="3"] {
+                background-color: #27a641;
+            }
+
+            [data-color-level="4"] {
+                background-color: #3ad353;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div id="editorToolbar">Toolbar</div>
+            <div id="heatmap"></div>
+
+            <button onclick="exportData()">Export</button>
+        </main>
+        <script>
+            let selectedColor = "0";
+            // TODO: move the for loops into functions instead of just running it here.
+            for (let i = 0; i < 360; i++) {
+                const pixel = document.createElement("div");
+                pixel.dataset.colorLevel = "0";
+                pixel.onclick = () => {
+                    pixel.dataset.colorLevel = selectedColor;
+                };
+                heatmap.append(pixel);
+            }
+
+            for (let i = 0; i < 5; i++) {
+                const label = document.createElement("label");
+                label.dataset.colorLevel = i;
+                label.onclick = () => {
+                    selectedColor = i;
+                };
+
+                const input = document.createElement("input");
+                input.checked = i === 0;
+                input.value = i;
+                input.name = "color";
+                input.type = "radio";
+                label.append(input);
+
+                editorToolbar.append(label);
+            }
+
+            /**
+             * TODO:
+             * - when you click export, generate the Bash script that will actually generate the fake commits.
+             * - then display that on the UI instead of writing into console. Also remove `alert` call.
+             */
+            function exportData() {
+                const data = Array.from(
+                    document.querySelectorAll("#heatmap > div")
+                ).map((item) => +item.dataset.colorLevel);
+                console.log(data);
+                alert("pasted to console");
+            }
+        </script>
+    </body>
+</html>
