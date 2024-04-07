@@ -16,3 +16,26 @@ A fun project for generating a git history which draws pixel-art when displayed 
 # More:
 - Read about how contributions are counted for Github:
     - [Why are my contributions not showing up on my profile](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/managing-contribution-settings-on-your-profile/why-are-my-contributions-not-showing-up-on-my-profile)
+
+# HOW TO USE:
+
+create a new folder for the dummy repo, for example:
+> mkdir dummy-repo-for-pixel-art # make directory
+> cd dummy-repo-for-pixel-art # open folder
+
+add some readme file just so no one gets confused:
+> echo "This is a dummy repository" > README.md
+> echo "Commits made using my activity-heatmap-pixel-art project" >> README.md
+
+create a repository using:
+> git init
+
+maybe set user
+>git config --local user.email email@example.com                   
+>git config --local user.name "First Last" 
+
+After creating new repo in github:
+- https://www.digitalocean.com/community/tutorials/how-to-push-an-existing-project-to-github
+> git remote add origin https://github.com/... the link to the repo
+Push
+> git push -u -f origin master # or main

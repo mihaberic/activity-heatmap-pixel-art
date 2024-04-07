@@ -101,7 +101,7 @@ function bashScriptToCreateFakeCommitHistory(dates) {
         .map((date, index) => {
             // TODO: WARNING: I haven't tested this yet. Might not work properly
             const oneCommit = [
-                `echo "Some text for ${date}" > ${outputFile}`,
+                `echo "Some text for ${date}" >> ${outputFile}`,
                 `git add ${outputFile}`,
                 `GIT_AUTHOR_DATE="${date}" GIT_COMMITTER_DATE="${date}" git commit -m "commit for ${date} - ${index}"`,
                 "",
