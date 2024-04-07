@@ -1,9 +1,7 @@
 // @ts-check
 
 const heatmap = forceGetById("heatmap");
-/** @type {HTMLElement} */
 const editorToolbar = forceGetById("editorToolbar");
-/** @type {HTMLElement} */
 const shellScriptExport = forceGetById("shellScriptExport");
 
 function forceGetById(id) {
@@ -42,11 +40,6 @@ for (let i = 0; i < 5; i++) {
     editorToolbar.append(label);
 }
 
-/**
- * TODO:
- * - when you click export, generate the Bash script that will actually generate the fake commits.
- * - then display that on the UI instead of writing into console. Also remove `alert` call.
- */
 function exportData() {
     const data = Array.from(heatmap.querySelectorAll("div")).map((item) => {
         return parseInt(
@@ -99,7 +92,6 @@ function bashScriptToCreateFakeCommitHistory(dates) {
     const outputFile = "file-for-commits.txt"; // TODO: Make this configurable
     const lines = dates
         .map((date, index) => {
-            // TODO: WARNING: I haven't tested this yet. Might not work properly
             const oneCommit = [
                 `echo "Some text for ${date}" >> ${outputFile}`,
                 `git add ${outputFile}`,

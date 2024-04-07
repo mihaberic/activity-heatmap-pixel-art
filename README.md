@@ -32,10 +32,12 @@ create a repository using:
 
 maybe set user
 >git config --local user.email email@example.com                   
->git config --local user.name "First Last" 
+>git config --local user.name "First Last"
+
+Helpful link:
+- [how-to-push-an-existing-project-to-github](https://www.digitalocean.com/community/tutorials/how-to-push-an-existing-project-to-github)
 
 After creating new repo in github:
-- https://www.digitalocean.com/community/tutorials/how-to-push-an-existing-project-to-github
 > git remote add origin https://github.com/... the link to the repo
 Push
 > git push -u -f origin master # or main
