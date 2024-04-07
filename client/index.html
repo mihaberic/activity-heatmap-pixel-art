@@ -1,7 +1,8 @@
 <!--
 TODO:
-- separate js into separate file when it becomes too large (> 200 lines)
-- have stored examples that you can draw and edit
+- Finish shell script creator:
+    - also write instruction for creating a repo and pushing it
+    - allow user to change what file to use for commits
 
 -->
 <!DOCTYPE html>
@@ -80,85 +81,17 @@ TODO:
     </head>
     <body>
         <main>
-            <div id="editorToolbar">Toolbar</div>
+            <div id="editorToolbar">
+                Toolbar
+                <br />
+                <button onclick="importExample('smiley-and-hihi.json')">
+                    Import 1
+                </button>
+            </div>
             <div id="heatmap"></div>
-
             <button onclick="exportData()">Export</button>
+            <pre id="shellScriptExport"></pre>
         </main>
-        <script>
-            let selectedColor = "0";
-            // TODO: move the for loops into functions instead of just running it here.
-            for (let i = 0; i < 360; i++) {
-                const pixel = document.createElement("div");
-                pixel.dataset.colorLevel = "0";
-                pixel.onclick = () => {
-                    pixel.dataset.colorLevel = selectedColor;
-                };
-                heatmap.append(pixel);
-            }
-
-            for (let i = 0; i < 5; i++) {
-                const label = document.createElement("label");
-                label.dataset.colorLevel = i;
-                label.onclick = () => {
-                    selectedColor = i;
-                };
-
-                const input = document.createElement("input");
-                input.checked = i === 0;
-                input.value = i;
-                input.name = "color";
-                input.type = "radio";
-                label.append(input);
-
-                editorToolbar.append(label);
-            }
-
-            /**
-             * TODO:
-             * - when you click export, generate the Bash script that will actually generate the fake commits.
-             * - then display that on the UI instead of writing into console. Also remove `alert` call.
-             */
-            function exportData() {
-                const data = Array.from(
-                    document.querySelectorAll("#heatmap > div")
-                ).map((item) => +item.dataset.colorLevel);
-                console.log(data);
-                alert("pasted to console");
-                const dates = createCommitDateListFromHeatmapValues(data);
-                const linesOfBash = bashScriptToCreateFakeCommitHistory(dates);
-                // TODO: add a "copy to clipboard button for this."
-                console.log(lines);
-            }
-
-            /**
-             * @param {(0 | 1 | 2 | 3 | 4)[]} mapData
-             */
-            function createCommitDateListFromHeatmapValues(mapData) {
-                // TODO
-                return [];
-            }
-
-            /**
-             * @param {string[]} dates
-             */
-            function bashScriptToCreateFakeCommitHistory(dates) {
-                const outputFile = "file-for-commits.txt"; // TODO: Make this configurable
-                const lines = dates
-                    .map((date, index) => {
-                        // TODO: WARNING: I haven't tested this yet. Might not work properly
-                        const oneCommit = [
-                            `echo "Some text for ${date}" > ${outputFile}`,
-                            `git add ${outputFile}`,
-                            `GIT_AUTHOR_DATE="${date}" GIT_COMMITTER_DATE="${date}" git commit -m "commit for ${date} - ${index}"`,
-                        ];
-
-                        return oneCommit;
-                    })
-                    .flat();
-
-                return lines;
-            }
-        </script>
+        <script src="index.js"></script>
     </body>
 </html>
